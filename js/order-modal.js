@@ -71,7 +71,7 @@ function showOrderModal(bookTitle) {
 
 function showInstructions(bookTitle, paymentMethod, buyerPhone, buyerName, buyerEmail) {
     const instructionsDiv = document.getElementById('orderInstructions');
-    const momoNumber = paymentMethod === 'orange' ? '0771234567' : '0881234567';
+    const momoNumber = paymentMethod === 'orange' ? '0771620083' : '0881285925';
     const provider = paymentMethod === 'orange' ? 'Orange Money' : 'Lonestar MTN';
     let price = '5,000 LRD';
     if (bookTitle === 'Clay Hands') price = '6,000 LRD';
