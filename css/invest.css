@@ -1,0 +1,85 @@
+.invest-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.project-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.funding-status {
+    margin: 1.5rem 0;
+}
+
+.funding-bar {
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.funding-progress {
+    background: #27ae60;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 20px;
+    width: 0%;
+}
+
+.tier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.tier {
+    background: #faf6f0;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.tier.featured {
+    border: 2px solid #b87c4f;
+    background: #fef5e7;
+}
+
+.tier h4 {
+    color: #b87c4f;
+    margin-bottom: 0.5rem;
+}
+
+.btn-invest {
+    display: inline-block;
+    background: #2c3e2f;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.past-projects {
+    background: #f0ebe4;
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+}
+
+.invest-note {
+    background: #e8f5e9;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+}
