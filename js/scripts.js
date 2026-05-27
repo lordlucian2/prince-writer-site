@@ -1,20 +1,31 @@
-// Create dummy PDF blobs for "First 5 Pages" preview
-// In production, replace with actual PDF files in /pdfs/ folder
-
-function createDummyPDF(scriptTitle) {
-    // This creates a simple text blob as a placeholder PDF
-    const content = `FIRST 5 PAGES OF: ${scriptTitle}\n\n[This is a placeholder. Replace with actual PDF of first 5 pages.]\n\nFADE IN:\nINT. MONROVIA KITCHEN - DAY\n\nA woman peels plantains. The radio crackles with election results.\n\n... (first 5 pages content would go here) ...`;
-    const blob = new Blob([content], { type: 'application/pdf' });
-    return URL.createObjectURL(blob);
+// First 5 Pages preview – link to actual PDF files
+function getPreviewUrl(scriptTitle) {
+    // Map script title to filename (space to underscore)
+    const mapping = {
+        'Reels of Dust': 'Reels_of_Dust_first5.pdf.html',
+        'Clay Hands (Short)': 'Clay_Hands_Short_first5.pdf.html',
+        'The Last Palm Tree': 'The_Last_Palm_Tree_first5.pdf.html',
+        'Monrovia South': 'Monrovia_South_first5.pdf.html',
+        'Spirit of October Adaptation': 'Spirit_of_October_Adaptation_first5.pdf.html'
+    };
+    const filename = mapping[scriptTitle];
+    if (filename) {
+        return `../pdfs/${filename}`;
+    } else {
+        return null;
+    }
 }
 
 // Handle "First 5 Pages" buttons
 document.querySelectorAll('.btn-preview').forEach(btn => {
     btn.addEventListener('click', function(e) {
         const scriptTitle = this.getAttribute('data-script');
-        const pdfUrl = createDummyPDF(scriptTitle);
-        window.open(pdfUrl, '_blank');
-        // In production: window.open(`/pdfs/${scriptTitle.replace(/\s/g,'_')}_first5.pdf`, '_blank');
+        const url = getPreviewUrl(scriptTitle);
+        if (url) {
+            window.open(url, '_blank');
+        } else {
+            alert('Preview not yet available. Please request full script.');
+        }
     });
 });
 
@@ -22,7 +33,6 @@ document.querySelectorAll('.btn-preview').forEach(btn => {
 document.querySelectorAll('.btn-request').forEach(btn => {
     btn.addEventListener('click', function(e) {
         const scriptTitle = this.getAttribute('data-script');
-        // Redirect to contact form with pre-filled subject
         const subject = encodeURIComponent(`Script Request: ${scriptTitle} (Full Script)`);
         window.location.href = `../contact/?subject=${subject}&script=${encodeURIComponent(scriptTitle)}`;
     });
