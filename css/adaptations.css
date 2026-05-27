@@ -1,0 +1,76 @@
+.adaptations-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.adaptations-page h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.adaption-section {
+    margin: 3rem 0;
+}
+
+.adaption-section h2 {
+    border-left: 5px solid #b87c4f;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.adaptation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.adaptation-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.adaptation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.adaptation-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.medium {
+    color: #b87c4f;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.logline {
+    font-size: 0.9rem;
+    margin: 0.75rem 0;
+}
+
+.btn-adapt {
+    display: inline-block;
+    background: #2c3e2f;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+.adaptation-note {
+    background: #fef5e7;
+    border-left: 5px solid #b87c4f;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    text-align: center;
+}
