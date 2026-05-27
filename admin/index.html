@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | Prince Writer</title>
+    <style>
+        body { font-family: monospace; max-width: 900px; margin: 2rem auto; padding: 1rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #2c3e2f; color: white; }
+        .logout { margin-top: 2rem; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+<div id="content">
+    <p>Loading...</p>
+</div>
+<script>
+    const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
+    
+    let auth = sessionStorage.getItem('adminAuth');
+    if (auth !== ADMIN_PASSWORD) {
+        const pwd = prompt('Enter admin password:');
+        if (pwd === ADMIN_PASSWORD) {
+            sessionStorage.setItem('adminAuth', pwd);
+        } else {
+            document.getElementById('content').innerHTML = '<p class="error">Access denied.</p>';
+            throw new Error('Unauthorized');
+        }
+    }
+    
+    // Load orders from localStorage (from order-modal.js)
+    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    
+    // Load contact form submissions from Formspree? Not possible directly – must export manually.
+    // For now, show orders and instructions for getting form data.
+    let html = `<h2>Recent Book Orders (from localStorage)</h2>`;
+    if (orders.length === 0) {
+        html += `<p>No orders yet.</p>`;
+    } else {
+        html += `<table><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>`;
+        orders.reverse().forEach(order => {
+            html += `<tr><td>${order.timestamp || ''}</td><td>${order.name || ''}</td><td>${order.phone || ''}</td><td>${order.email || ''}</td><td>${order.book || ''}</td></tr>`;
+        });
+        html += `</table>`;
+    }
+    
+    html += `<h2>Contact Form Submissions</h2>`;
+    html += `<p>📧 Go to <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank">Formspree Submissions Dashboard</a> to see all contact and order inquiries.</p>`;
+    html += `<p><strong>Tip:</strong> Export as CSV for record keeping.</p>`;
+    html += `<div class="logout"><button onclick="sessionStorage.removeItem('adminAuth'); location.reload();">Logout</button></div>`;
+    document.getElementById('content').innerHTML = html;
+</script>
+</body>
+</html>
