@@ -1,0 +1,149 @@
+.mode-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto 1rem;
+}
+
+.mode-btn {
+    background: #e0e0e0;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.mode-btn.active {
+    background: #2c3e2f;
+    color: white;
+}
+
+.bookshelf {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.bookshelf h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.subhead {
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.book-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.book-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.book-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.genre {
+    color: #b87c4f;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.synopsis {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.price-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.price-local {
+    background: #2c3e2f;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.price-intl {
+    background: #b87c4f;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.buy-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-momo, .btn-intl {
+    padding: 0.4rem 0.8rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-momo {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-intl {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-details {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #2c3e2f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.local-payment-note {
+    background: #fef5e7;
+    border-left: 4px solid #b87c4f;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}

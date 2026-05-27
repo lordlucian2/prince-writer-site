@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books by Prince | Liberian Writer</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/books.css">
+</head>
+<body>
+
+    <div class="top-bar" id="audienceBar">
+        <span>📖 For readers: Discover books | 🎬 For filmmakers: Request scripts</span>
+    </div>
+
+    <nav>
+        <div class="logo">Prince<span>Writer</span></div>
+        <ul id="navMenu">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="index.html" class="active">Books</a></li>
+            <li><a href="../scripts/">Script Vault</a></li>
+            <li><a href="../about/">About</a></li>
+            <li><a href="../contact/">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dual-mode switcher -->
+    <div class="mode-switcher">
+        <button id="modeBooks" class="mode-btn active">📚 Books Mode</button>
+        <button id="modeFilms" class="mode-btn">🎬 Films Mode</button>
+    </div>
+
+    <main class="bookshelf">
+        <h1>Bookshelf</h1>
+        <p class="subhead">Novels, short stories, and narrative nonfiction from Liberia.</p>
+
+        <div class="book-grid" id="bookGrid">
+            <!-- Book Card 1 -->
+            <div class="book-card">
+                <img src="../images/book-placeholder-1.jpg" alt="Book cover" onerror="this.src='https://placehold.co/300x400?text=The+Palm+Wine+Thief'">
+                <h3>The Palm Wine Thief</h3>
+                <p class="genre">Literary Fiction</p>
+                <p class="synopsis">A boy's gift for finding lost things leads him into Monrovia's underworld.</p>
+                <div class="price-row">
+                    <span class="price-local">5,000 LRD</span>
+                    <span class="price-intl">$25 USD</span>
+                </div>
+                <div class="buy-options">
+                    <button class="btn-momo" data-book="The Palm Wine Thief">📱 Buy with Mobile Money</button>
+                    <a href="#" class="btn-intl">Amazon/Kindle</a>
+                </div>
+                <a href="palm-wine-thief.html" class="btn-details">Details →</a>
+            </div>
+
+            <!-- Book Card 2 -->
+            <div class="book-card">
+                <img src="../images/book-placeholder-2.jpg" alt="Book cover" onerror="this.src='https://placehold.co/300x400?text=Spirit+of+October'">
+                <h3>Spirit of October</h3>
+                <p class="genre">Magical Realism</p>
+                <p class="synopsis">During election season, a boy sees the ghosts of future leaders.</p>
+                <div class="price-row">
+                    <span class="price-local">4,500 LRD</span>
+                    <span class="price-intl">$22 USD</span>
+                </div>
+                <div class="buy-options">
+                    <button class="btn-momo" data-book="Spirit of October">📱 Buy with Mobile Money</button>
+                    <a href="#" class="btn-intl">Amazon/Kindle</a>
+                </div>
+                <a href="spirit-of-october.html" class="btn-details">Details →</a>
+            </div>
+
+            <!-- Book Card 3 -->
+            <div class="book-card">
+                <img src="../images/book-placeholder-3.jpg" alt="Book cover" onerror="this.src='https://placehold.co/300x400?text=Clay+Hands'">
+                <h3>Clay Hands</h3>
+                <p class="genre">Short Stories</p>
+                <p class="synopsis">Ten stories of craft, survival, and clay pottery in post-war Liberia.</p>
+                <div class="price-row">
+                    <span class="price-local">6,000 LRD</span>
+                    <span class="price-intl">$30 USD</span>
+                </div>
+                <div class="buy-options">
+                    <button class="btn-momo" data-book="Clay Hands">📱 Buy with Mobile Money</button>
+                    <a href="#" class="btn-intl">Amazon/Kindle</a>
+                </div>
+                <a href="clay-hands.html" class="btn-details">Details →</a>
+            </div>
+        </div>
+
+        <div class="local-payment-note">
+            <p>💡 <strong>Liberia readers:</strong> Use Mobile Money (Orange / Lonestar) for instant PDF delivery. No credit card needed. <a href="../contact/">Questions?</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Prince. All rights reserved. | <a href="../contact/">Contact for rights & speaking</a></p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/books.js"></script>
+</body>
+</html>
