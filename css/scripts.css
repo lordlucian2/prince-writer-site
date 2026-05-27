@@ -1,0 +1,118 @@
+.script-vault {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.script-vault h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.script-section {
+    margin: 3rem 0;
+}
+
+.script-section h2 {
+    border-left: 5px solid #b87c4f;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.script-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.script-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.script-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.script-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.format {
+    color: #b87c4f;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.logline {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0.75rem 0;
+}
+
+.produced-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.badge {
+    background: #27ae60;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+
+.trailer-link {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.script-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-preview, .btn-request {
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.btn-preview {
+    background: #3498db;
+    color: white;
+}
+
+.btn-preview:hover {
+    background: #2980b9;
+}
+
+.btn-request {
+    background: #2c3e2f;
+    color: white;
+}
+
+.btn-request:hover {
+    background: #1e2a22;
+}
+
+.nd-notice {
+    background: #f0ebe4;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 2rem;
+}
