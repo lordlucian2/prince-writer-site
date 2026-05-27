@@ -276,3 +276,41 @@ footer a {
     cursor: pointer;
     margin-top: 0.75rem;
 }
+
+/* Enhanced Testimonials */
+.testimonial {
+    background: #faf6f0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    flex: 1;
+}
+
+.testimonial-author {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* Press & Features */
+.press-features {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    margin: 2rem 0;
+}
+
+.press-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.press-item {
+    background: #f0ebe4;
+    padding: 1rem 1.5rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    text-align: center;
+}
