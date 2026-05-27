@@ -238,3 +238,41 @@ footer a {
     font-size: 0.8rem;
     opacity: 0.8;
 }
+
+/* Lead Magnets */
+.lead-magnets {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #f0ebe4;
+    margin: 2rem 0;
+}
+
+.lead-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.lead-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 280px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.lead-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.btn-lead {
+    background: #b87c4f;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-top: 0.75rem;
+}
