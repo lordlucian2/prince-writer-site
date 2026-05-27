@@ -8,11 +8,9 @@
     <link rel="stylesheet" href="../css/contact.css">
 </head>
 <body>
-
     <div class="top-bar">
         <span>📞 Quickest reply: WhatsApp or use the form below.</span>
     </div>
-
     <nav>
         <div class="logo">Prince<span>Writer</span></div>
         <ul>
@@ -23,23 +21,25 @@
             <li><a href="index.html" class="active">Contact</a></li>
         </ul>
     </nav>
-
     <main class="contact-page">
         <h1>Contact Prince</h1>
         <div class="contact-container">
             <div class="contact-form-box">
-                <form id="contactForm" action="#" method="POST">
+                <div data-fs-success></div>
+                <div data-fs-error></div>
+                <form id="contactForm" method="POST">
                     <label for="name">Full name *</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" required data-fs-field>
 
                     <label for="email">Email address *</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required data-fs-field>
+                    <span data-fs-error="email"></span>
 
                     <label for="phone">Phone number (Liberia: include 077/088)</label>
-                    <input type="tel" id="phone" name="phone">
+                    <input type="tel" id="phone" name="phone" data-fs-field>
 
                     <label for="inquiryType">Inquiry type *</label>
-                    <select id="inquiryType" name="inquiryType" required>
+                    <select id="inquiryType" name="inquiryType" required data-fs-field>
                         <option value="">-- Select one --</option>
                         <option value="book_purchase">📚 Book purchase / Mobile Money help</option>
                         <option value="script_option">🎬 Script option / Rights inquiry</option>
@@ -48,38 +48,35 @@
                         <option value="media">📺 Media & interview</option>
                         <option value="other">💡 Other</option>
                     </select>
+                    <span data-fs-error="inquiryType"></span>
 
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" placeholder="e.g., Script request: The Last Palm Tree">
+                    <input type="text" id="subject" name="subject" placeholder="e.g., Script request: The Last Palm Tree" data-fs-field>
 
                     <label for="message">Message *</label>
-                    <textarea id="message" name="message" rows="6" required></textarea>
+                    <textarea id="message" name="message" rows="6" required data-fs-field></textarea>
+                    <span data-fs-error="message"></span>
 
-                    <button type="submit" class="btn-submit">Send message →</button>
+                    <button type="submit" class="btn-submit" data-fs-submit-btn>Send message →</button>
                 </form>
                 <p class="form-note">📩 I'll reply within 48 hours. For urgent script requests, use WhatsApp below.</p>
             </div>
-
             <div class="contact-sidebar">
                 <div class="whatsapp-card">
                     <h3>📱 WhatsApp (fastest)</h3>
                     <p>Click to send a pre-filled message:</p>
-                    <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
-                        💬 Message on WhatsApp
-                    </a>
-                    <p class="small">Or reach directly at: <strong>[Insert Number]</strong></p>
+                    <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">💬 Message on WhatsApp</a>
+                    <p class="small">Or reach directly at: <strong>+231 777 123 456</strong></p>
                 </div>
-
                 <div class="mobile-money-card">
                     <h3>💸 Mobile Money Support</h3>
                     <p>For book purchases via Orange Money / Lonestar MTN:</p>
                     <ul>
-                        <li><strong>Orange Money:</strong> [Insert Number]</li>
-                        <li><strong>Lonestar MTN:</strong> [Insert Number]</li>
+                        <li><strong>Orange Money:</strong> 077 123 4567</li>
+                        <li><strong>Lonestar MTN:</strong> 088 123 4567</li>
                     </ul>
                     <p>After payment, send screenshot and your email to receive PDF.</p>
                 </div>
-
                 <div class="press-card">
                     <h3>📰 Press & Media Kit</h3>
                     <p><a href="../press-kit.zip">Download Press Kit (ZIP)</a> – bio, headshots, interview clips.</p>
@@ -87,12 +84,18 @@
             </div>
         </div>
     </main>
-
     <footer>
         <p>© 2026 Prince. All rights reserved.</p>
     </footer>
-
     <script src="../js/main.js"></script>
     <script src="../js/contact.js"></script>
+    <script>
+      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+      formspree('initForm', {
+        formElement: '#contactForm',
+        formId: 'xojbyazd'
+      });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
