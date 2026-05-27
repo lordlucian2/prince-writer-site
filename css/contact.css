@@ -1,0 +1,104 @@
+.contact-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.contact-page h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.contact-form-box {
+    flex: 2;
+    min-width: 260px;
+}
+
+.contact-sidebar {
+    flex: 1;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form-box form {
+    background: #faf6f0;
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.contact-form-box label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.contact-form-box input, 
+.contact-form-box select, 
+.contact-form-box textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.btn-submit {
+    background: #2c3e2f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.form-note {
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    color: #555;
+}
+
+.whatsapp-card, .mobile-money-card, .press-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    background: #25D366;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 40px;
+    text-decoration: none;
+    margin: 0.5rem 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mobile-money-card ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.small {
+    font-size: 0.75rem;
+    color: #777;
+}
+
+@media (max-width: 700px) {
+    .contact-container {
+        flex-direction: column;
+    }
+}

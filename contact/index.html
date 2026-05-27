@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Prince | Liberian Writer</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/contact.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <span>📞 Quickest reply: WhatsApp or use the form below.</span>
+    </div>
+
+    <nav>
+        <div class="logo">Prince<span>Writer</span></div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../books/">Books</a></li>
+            <li><a href="../scripts/">Script Vault</a></li>
+            <li><a href="../about/">About</a></li>
+            <li><a href="index.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="contact-page">
+        <h1>Contact Prince</h1>
+        <div class="contact-container">
+            <div class="contact-form-box">
+                <form id="contactForm" action="#" method="POST">
+                    <label for="name">Full name *</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email address *</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Phone number (Liberia: include 077/088)</label>
+                    <input type="tel" id="phone" name="phone">
+
+                    <label for="inquiryType">Inquiry type *</label>
+                    <select id="inquiryType" name="inquiryType" required>
+                        <option value="">-- Select one --</option>
+                        <option value="book_purchase">📚 Book purchase / Mobile Money help</option>
+                        <option value="script_option">🎬 Script option / Rights inquiry</option>
+                        <option value="speaking">🎤 Speaking engagement / Reading</option>
+                        <option value="script_consulting">✍️ Script consulting / Ghostwriting commission</option>
+                        <option value="media">📺 Media & interview</option>
+                        <option value="other">💡 Other</option>
+                    </select>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="e.g., Script request: The Last Palm Tree">
+
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+
+                    <button type="submit" class="btn-submit">Send message →</button>
+                </form>
+                <p class="form-note">📩 I'll reply within 48 hours. For urgent script requests, use WhatsApp below.</p>
+            </div>
+
+            <div class="contact-sidebar">
+                <div class="whatsapp-card">
+                    <h3>📱 WhatsApp (fastest)</h3>
+                    <p>Click to send a pre-filled message:</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
+                        💬 Message on WhatsApp
+                    </a>
+                    <p class="small">Or reach directly at: <strong>[Insert Number]</strong></p>
+                </div>
+
+                <div class="mobile-money-card">
+                    <h3>💸 Mobile Money Support</h3>
+                    <p>For book purchases via Orange Money / Lonestar MTN:</p>
+                    <ul>
+                        <li><strong>Orange Money:</strong> [Insert Number]</li>
+                        <li><strong>Lonestar MTN:</strong> [Insert Number]</li>
+                    </ul>
+                    <p>After payment, send screenshot and your email to receive PDF.</p>
+                </div>
+
+                <div class="press-card">
+                    <h3>📰 Press & Media Kit</h3>
+                    <p><a href="../press-kit.zip">Download Press Kit (ZIP)</a> – bio, headshots, interview clips.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Prince. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/contact.js"></script>
+</body>
+</html>
