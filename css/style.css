@@ -345,3 +345,57 @@ footer a {
         flex-direction: column;
     }
 }
+
+/* Hero background gradient */
+.hero {
+    background: linear-gradient(135deg, #faf0e6 0%, #f5e6d3 100%);
+    border-radius: 0 0 40px 40px;
+    margin-bottom: 2rem;
+}
+
+/* Featured Book Banner */
+.featured-banner {
+    background: #2c3e2f;
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    border-radius: 24px;
+}
+.featured-label {
+    background: #b87c4f;
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+.featured-banner h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.featured-banner p {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.9;
+}
+.btn-featured, .btn-featured-momo {
+    background: #b87c4f;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    display: inline-block;
+}
+.btn-featured-momo {
+    background: #27ae60;
+}
+@media (max-width: 700px) {
+    .featured-banner h2 { font-size: 1.5rem; }
+    .btn-featured, .btn-featured-momo { display: block; margin: 0.5rem auto; width: 80%; }
+}
