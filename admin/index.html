@@ -2,31 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Prince Writer</title>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 1rem; background: #f5f5f5; }
-        .container { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        h1, h2 { margin-top: 0; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; overflow-x: auto; display: block; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
-        th { background: #2c3e2f; color: white; }
-        .actions { margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        button { background: #b87c4f; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; }
-        button:hover { opacity: 0.9; }
-        .logout { margin-top: 2rem; }
-        .error { color: red; }
-        .note { font-size: 0.85rem; color: #666; margin-top: 1rem; }
-        @media (max-width: 700px) { th, td { font-size: 0.75rem; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #f0ebe4;
+            padding: 2rem;
+        }
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e2f;
+            border-left: 5px solid #b87c4f;
+            padding-left: 1rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #2c3e2f;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        button {
+            background: #b87c4f;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        button:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+        .clear-btn {
+            background: #c0392b;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: auto;
+            display: block;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #2c3e2f;
+            color: white;
+            font-weight: 600;
+        }
+        .formspree-link {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .logout {
+            margin-top: 2rem;
+            border-top: 1px solid #ddd;
+            padding-top: 1.5rem;
+            text-align: right;
+        }
+        .note {
+            background: #fef5e7;
+            padding: 0.75rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #555;
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            th, td { font-size: 0.75rem; padding: 6px; }
+            .button-group button { width: 100%; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="admin-container">
     <h1>Admin Dashboard</h1>
-    <div id="content">
+    <div id="dynamic-content">
         <p>Loading...</p>
     </div>
 </div>
+
 <script>
     const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
 
@@ -36,31 +127,41 @@
         if (pwd === ADMIN_PASSWORD) {
             sessionStorage.setItem('adminAuth', pwd);
         } else {
-            document.getElementById('content').innerHTML = '<p class="error">Access denied.</p>';
+            document.getElementById('dynamic-content').innerHTML = '<p style="color:red;">Access denied.</p>';
             throw new Error('Unauthorized');
         }
     }
 
-    // Load orders from localStorage
-    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    function loadOrders() {
+        return JSON.parse(localStorage.getItem('orders') || '[]');
+    }
+
+    function saveOrders(orders) {
+        localStorage.setItem('orders', JSON.stringify(orders));
+    }
 
     function render() {
-        let html = `<div class="actions">
-            <button id="exportCsvBtn">📥 Export Orders to CSV</button>
-            <button id="clearOrdersBtn" style="background:#c0392b;">🗑️ Clear All Orders</button>
-        </div>`;
+        let orders = loadOrders();
+        let html = `
+            <div class="button-group">
+                <button id="exportBtn">📥 Export Orders to CSV</button>
+                <button id="clearBtn" class="clear-btn">🗑️ Clear All Orders</button>
+            </div>
+        `;
 
         if (orders.length === 0) {
             html += `<p><strong>Recent Book Orders (from localStorage):</strong> No orders yet.</p>`;
         } else {
-            html += `<h2>Recent Book Orders (from localStorage)</h2>
+            html += `<h2>Recent Book Orders</h2>
             <table>
-                <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr></thead>
+                <thead>
+                    <tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>
+                </thead>
                 <tbody>`;
-            // Most recent first
+            // Show most recent first
             [...orders].reverse().forEach(order => {
                 html += `<tr>
-                    <td>${order.timestamp || ''}</td>
+                    <td>${escapeHtml(order.timestamp || '')}</td>
                     <td>${escapeHtml(order.name || '')}</td>
                     <td>${escapeHtml(order.phone || '')}</td>
                     <td>${escapeHtml(order.email || '')}</td>
@@ -71,25 +172,30 @@
         }
 
         html += `<h2>Contact Form Submissions & Feedback</h2>
-        <p>📧 Go to <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank" rel="noopener">Formspree Submissions Dashboard</a> to see all contact, newsletter, lead magnet, feedback, and order inquiries.</p>
+        <p>👉 <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank" class="formspree-link">Go to Formspree Submissions Dashboard</a></p>
         <p><strong>Tip:</strong> Export as CSV from Formspree for record keeping.</p>
-        <div class="logout"><button onclick="sessionStorage.removeItem('adminAuth'); location.reload();">Logout</button></div>
-        <div class="note">💡 Orders are stored in your browser's localStorage. This is for quick reference; Formspree also receives a copy.</div>`;
+        <div class="logout"><button id="logoutBtn">Logout</button></div>
+        <div class="note">💡 Orders are stored in your browser's localStorage. This is a quick reference; Formspree also receives a copy.</div>`;
 
-        document.getElementById('content').innerHTML = html;
+        document.getElementById('dynamic-content').innerHTML = html;
 
-        document.getElementById('exportCsvBtn')?.addEventListener('click', exportToCSV);
-        document.getElementById('clearOrdersBtn')?.addEventListener('click', clearOrders);
+        document.getElementById('exportBtn')?.addEventListener('click', exportToCSV);
+        document.getElementById('clearBtn')?.addEventListener('click', clearAllOrders);
+        document.getElementById('logoutBtn')?.addEventListener('click', () => {
+            sessionStorage.removeItem('adminAuth');
+            location.reload();
+        });
     }
 
     function exportToCSV() {
+        let orders = loadOrders();
         if (orders.length === 0) {
             alert('No orders to export.');
             return;
         }
-        let csvRows = [['Date', 'Name', 'Phone', 'Email', 'Book']];
+        const rows = [['Date', 'Name', 'Phone', 'Email', 'Book']];
         orders.forEach(order => {
-            csvRows.push([
+            rows.push([
                 order.timestamp || '',
                 order.name || '',
                 order.phone || '',
@@ -97,8 +203,8 @@
                 order.book || ''
             ]);
         });
-        const csvContent = csvRows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const csv = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -107,16 +213,16 @@
         URL.revokeObjectURL(url);
     }
 
-    function clearOrders() {
-        if (confirm('⚠️ Permanently delete all orders from localStorage? (Formspree data remains)')) {
+    function clearAllOrders() {
+        if (confirm('⚠️ Permanently delete ALL orders from localStorage? (Formspree data remains)')) {
             localStorage.removeItem('orders');
-            orders = [];
             render();
             alert('All orders cleared.');
         }
     }
 
     function escapeHtml(str) {
+        if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
             if (m === '<') return '&lt;';
