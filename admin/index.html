@@ -24,113 +24,70 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             text-align: center;
         }
-        .login-card h1 {
-            color: #2c3e2f;
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-        }
-        .login-card p {
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-            color: #2c3e2f;
-        }
-        input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        button {
-            background: #b87c4f;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 0.5rem;
-        }
+        .login-card h1 { color: #2c3e2f; margin-bottom: 0.5rem; font-size: 1.8rem; }
+        .login-card p { color: #666; margin-bottom: 1.5rem; }
+        .input-group { margin-bottom: 1rem; text-align: left; }
+        label { display: block; font-weight: bold; margin-bottom: 0.25rem; color: #2c3e2f; }
+        input { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 12px; font-size: 1rem; }
+        button { background: #b87c4f; color: white; border: none; padding: 0.75rem; border-radius: 40px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; margin-top: 0.5rem; }
         button:hover { opacity: 0.9; }
-        .error {
-            color: #c0392b;
-            margin-top: 0.75rem;
-            font-size: 0.85rem;
-        }
-        .admin-container {
-            display: none;
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            width: 100%;
-        }
-        /* CMS styles (same as before, but wrapped) */
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #ddd; }
+        .error { color: #c0392b; margin-top: 0.75rem; font-size: 0.85rem; }
+        .admin-container { display: none; max-width: 1200px; margin: 0 auto; background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
         .tab-btn { background: none; border: none; padding: 0.75rem 1.5rem; cursor: pointer; font-weight: bold; color: #555; border-radius: 30px 30px 0 0; }
         .tab-btn.active { background: #2c3e2f; color: white; }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; }
         .form-group { margin-bottom: 1rem; }
-        label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
         input, textarea, select { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; font-family: inherit; }
-        button.secondary { background: #2c3e2f; margin-top: 0.5rem; width: auto; }
+        button.secondary { background: #2c3e2f; width: auto; }
         button.danger { background: #c0392b; }
         .book-list { margin-top: 2rem; }
         .book-item { background: #faf6f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .book-info { flex: 1; }
         .book-actions button { margin-left: 0.5rem; margin-top: 0; width: auto; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; overflow-x: auto; display: block; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background: #2c3e2f; color: white; }
         .success-msg { background: #e8f5e9; padding: 0.5rem; border-radius: 8px; margin-bottom: 1rem; color: #2e7d32; }
-        .logout-btn { background: #b87c4f; margin-top: 1rem; width: auto; }
+        .logout-btn { background: #b87c4f; width: auto; }
+        hr { margin: 1rem 0; }
     </style>
 </head>
 <body>
     <div id="loginContainer" class="login-card">
         <h1>Admin Access</h1>
         <p>Enter password to manage content</p>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="adminPassword" placeholder="••••••••">
-        </div>
+        <div class="input-group"><label>Password</label><input type="password" id="adminPassword" placeholder="••••••••"></div>
         <button id="loginBtn">Login →</button>
         <div id="loginError" class="error"></div>
     </div>
-
     <div id="adminContainer" class="admin-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
             <h1 style="margin:0;">Admin CMS</h1>
             <button id="logoutBtn" class="logout-btn">Logout</button>
         </div>
         <div class="tabs">
             <button class="tab-btn active" data-tab="orders">📦 Orders</button>
-            <button class="tab-btn" data-tab="contact">📞 Contact Settings</button>
+            <button class="tab-btn" data-tab="contact">📞 Settings</button>
             <button class="tab-btn" data-tab="books">📚 Manage Books</button>
         </div>
         <div id="ordersTab" class="tab-pane active">Loading...</div>
         <div id="contactTab" class="tab-pane">
+            <h3>Contact Information</h3>
             <form id="contactSettingsForm">
                 <div class="form-group"><label>Orange Money Number</label><input type="tel" id="orangeNumber" placeholder="0771234567"></div>
                 <div class="form-group"><label>Lonestar MTN Number</label><input type="tel" id="lonestarNumber" placeholder="0881234567"></div>
                 <div class="form-group"><label>WhatsApp Number (international, no +)</label><input type="tel" id="whatsappNumber" placeholder="231777123456"></div>
                 <div class="form-group"><label>Email (for contact form)</label><input type="email" id="adminEmail" placeholder="prince@example.com"></div>
                 <button type="submit">Save Settings</button>
+            </form>
+            <hr>
+            <h3>Change Admin Password</h3>
+            <form id="passwordForm">
+                <div class="form-group"><label>New Password</label><input type="password" id="newPassword" required></div>
+                <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmPassword" required></div>
+                <button type="submit" class="secondary">Update Password</button>
             </form>
             <div id="contactMsg"></div>
         </div>
@@ -142,15 +99,28 @@
                 <div class="form-group"><label>Price Local (LRD)</label><input type="text" id="bookPriceLocal" required></div>
                 <div class="form-group"><label>Price International (USD)</label><input type="text" id="bookPriceIntl" required></div>
                 <div class="form-group"><label>Synopsis</label><textarea id="bookSynopsis" rows="2" required></textarea></div>
-                <div class="form-group"><label>Cover Image URL (optional)</label><input type="text" id="bookCoverUrl" placeholder="https://... or empty for placeholder"></div>
+                <div class="form-group"><label>Cover Image URL (optional)</label><input type="text" id="bookCoverUrl" placeholder="https://... or empty"></div>
                 <button type="submit">Add Book</button>
             </form>
             <div id="booksList" class="book-list">Loading books...</div>
         </div>
     </div>
-
     <script>
-        const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
+        // ---------- Password Management ----------
+        function getStoredPassword() {
+            let settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+            return settings.adminPassword || 'liberian2025';  // fallback default
+        }
+        function setStoredPassword(newPassword) {
+            let settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+            settings.adminPassword = newPassword;
+            localStorage.setItem('siteSettings', JSON.stringify(settings));
+        }
+
+        // Login logic
+        function checkPassword(inputPwd) {
+            return inputPwd === getStoredPassword();
+        }
 
         function showLogin() {
             document.getElementById('loginContainer').style.display = 'block';
@@ -164,7 +134,7 @@
 
         document.getElementById('loginBtn').addEventListener('click', () => {
             const pwd = document.getElementById('adminPassword').value;
-            if (pwd === ADMIN_PASSWORD) {
+            if (checkPassword(pwd)) {
                 sessionStorage.setItem('adminAuth', pwd);
                 showAdmin();
             } else {
@@ -175,14 +145,13 @@
             if (e.key === 'Enter') document.getElementById('loginBtn').click();
         });
 
-        // Check existing session
-        if (sessionStorage.getItem('adminAuth') === ADMIN_PASSWORD) {
+        if (sessionStorage.getItem('adminAuth') && checkPassword(sessionStorage.getItem('adminAuth'))) {
             showAdmin();
         } else {
             showLogin();
         }
 
-        // ---------- CMS Functions (same as before, but wrapped in initAdmin) ----------
+        // ---------- CMS Functions ----------
         function getBooks() { return JSON.parse(localStorage.getItem('books') || '[]'); }
         function saveBooks(books) { localStorage.setItem('books', JSON.stringify(books)); updateLiveBooksPage(); }
         function getSettings() { return JSON.parse(localStorage.getItem('siteSettings') || '{}'); }
@@ -208,7 +177,7 @@
             let html = `<div><button id="exportOrdersBtn">📥 Export to CSV</button> <button id="clearOrdersBtn" class="danger">🗑️ Clear All Orders</button></div>`;
             if (orders.length === 0) html += `<p>No orders yet.</p>`;
             else {
-                html += `<table><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>`;
+                html += `<tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></table>`;
                 [...orders].reverse().forEach(o => {
                     html += `<tr><td>${escapeHtml(o.timestamp)}</td><td>${escapeHtml(o.name)}</td><td>${escapeHtml(o.phone)}</td><td>${escapeHtml(o.email)}</td><td>${escapeHtml(o.book)}</td></tr>`;
                 });
@@ -325,15 +294,33 @@
             document.getElementById('bookForm').onsubmit = addBookHandler;
             document.getElementById('contactSettingsForm').onsubmit = (e) => {
                 e.preventDefault();
-                let settings = {
-                    orangeMoney: document.getElementById('orangeNumber').value,
-                    lonestarMoney: document.getElementById('lonestarNumber').value,
-                    whatsapp: document.getElementById('whatsappNumber').value,
-                    email: document.getElementById('adminEmail').value
-                };
+                let settings = getSettings();
+                settings.orangeMoney = document.getElementById('orangeNumber').value;
+                settings.lonestarMoney = document.getElementById('lonestarNumber').value;
+                settings.whatsapp = document.getElementById('whatsappNumber').value;
+                settings.email = document.getElementById('adminEmail').value;
                 saveSettings(settings);
                 document.getElementById('contactMsg').innerHTML = '<div class="success-msg">✅ Settings saved! Refresh site to see changes.</div>';
                 setTimeout(() => document.getElementById('contactMsg').innerHTML = '', 3000);
+            };
+            // Password change form
+            document.getElementById('passwordForm').onsubmit = (e) => {
+                e.preventDefault();
+                const newPwd = document.getElementById('newPassword').value;
+                const confirmPwd = document.getElementById('confirmPassword').value;
+                if (newPwd !== confirmPwd) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+                if (newPwd.length < 4) {
+                    alert('Password must be at least 4 characters.');
+                    return;
+                }
+                setStoredPassword(newPwd);
+                // Also update session storage so current session stays active
+                sessionStorage.setItem('adminAuth', newPwd);
+                alert('Password changed successfully! Use this new password for future logins.');
+                document.getElementById('passwordForm').reset();
             };
             // Tab switching
             document.querySelectorAll('.tab-btn').forEach(btn => {
