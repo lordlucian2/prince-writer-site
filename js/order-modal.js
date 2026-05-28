@@ -81,7 +81,7 @@ function showInstructions(bookTitle, paymentMethod, buyerPhone, buyerName, buyer
         Please send <strong>${price}</strong> to:<br>
         <strong>${provider}: ${momoNumber}</strong><br>
         Reference: <strong>BOOK-${bookTitle.replace(/\s/g,'')}</strong><br><br>
-        After payment, send screenshot to <a href="https://wa.me/231777123456" target="_blank">WhatsApp</a> or email ${buyerEmail}.<br>
+        After payment, send screenshot to <a href="https://wa.me/231771620083" target="_blank">WhatsApp</a> or email ${buyerEmail}.<br>
         You will receive the PDF within 24 hours.
     `;
     instructionsDiv.style.display = 'block';

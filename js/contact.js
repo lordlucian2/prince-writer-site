@@ -17,7 +17,7 @@ if (scriptTitle || (subjectParam && subjectParam.toLowerCase().includes('script'
 }
 
 // WhatsApp pre-filled message
-const whatsappNumber = '231777123456';
+const whatsappNumber = '231771620083';
 const defaultMsg = "Hello Prince, I'm interested in your work (books/scripts).";
 const whatsappLink = document.getElementById('whatsappLink');
 if (whatsappLink) {
