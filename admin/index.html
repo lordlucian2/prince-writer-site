@@ -3,235 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Prince Writer</title>
+    <title>Admin Login | Prince Writer</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             background: #f0ebe4;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .login-card {
+            background: white;
+            border-radius: 24px;
             padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .login-card h1 {
+            color: #2c3e2f;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        .login-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+            color: #2c3e2f;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        button {
+            background: #b87c4f;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        button:hover { opacity: 0.9; }
+        .error {
+            color: #c0392b;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
         }
         .admin-container {
+            display: none;
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 24px;
             padding: 2rem;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #2c3e2f;
-            border-left: 5px solid #b87c4f;
-            padding-left: 1rem;
-        }
-        h2 {
-            font-size: 1.3rem;
-            margin: 1.5rem 0 0.75rem 0;
-            color: #2c3e2f;
-        }
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-        button {
-            background: #b87c4f;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        button:hover {
-            opacity: 0.85;
-            transform: scale(1.02);
-        }
-        .clear-btn {
-            background: #c0392b;
-        }
-        table {
             width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-            border-radius: 12px;
-            overflow: auto;
-            display: block;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background: #2c3e2f;
-            color: white;
-            font-weight: 600;
-        }
-        .formspree-link {
-            display: inline-block;
-            background: #27ae60;
-            color: white;
-            text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        .logout {
-            margin-top: 2rem;
-            border-top: 1px solid #ddd;
-            padding-top: 1.5rem;
-            text-align: right;
-        }
-        .note {
-            background: #fef5e7;
-            padding: 0.75rem;
-            border-radius: 12px;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: #555;
-        }
-        @media (max-width: 700px) {
-            body { padding: 1rem; }
-            th, td { font-size: 0.75rem; padding: 6px; }
-            .button-group button { width: 100%; }
-        }
+        /* CMS styles (same as before, but wrapped) */
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #ddd; }
+        .tab-btn { background: none; border: none; padding: 0.75rem 1.5rem; cursor: pointer; font-weight: bold; color: #555; border-radius: 30px 30px 0 0; }
+        .tab-btn.active { background: #2c3e2f; color: white; }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+        input, textarea, select { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 8px; font-family: inherit; }
+        button.secondary { background: #2c3e2f; margin-top: 0.5rem; width: auto; }
+        button.danger { background: #c0392b; }
+        .book-list { margin-top: 2rem; }
+        .book-item { background: #faf6f0; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .book-info { flex: 1; }
+        .book-actions button { margin-left: 0.5rem; margin-top: 0; width: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #2c3e2f; color: white; }
+        .success-msg { background: #e8f5e9; padding: 0.5rem; border-radius: 8px; margin-bottom: 1rem; color: #2e7d32; }
+        .logout-btn { background: #b87c4f; margin-top: 1rem; width: auto; }
     </style>
 </head>
 <body>
-<div class="admin-container">
-    <h1>Admin Dashboard</h1>
-    <div id="dynamic-content">
-        <p>Loading...</p>
+    <div id="loginContainer" class="login-card">
+        <h1>Admin Access</h1>
+        <p>Enter password to manage content</p>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="adminPassword" placeholder="••••••••">
+        </div>
+        <button id="loginBtn">Login →</button>
+        <div id="loginError" class="error"></div>
     </div>
-</div>
 
-<script>
-    const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
+    <div id="adminContainer" class="admin-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h1 style="margin:0;">Admin CMS</h1>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="orders">📦 Orders</button>
+            <button class="tab-btn" data-tab="contact">📞 Contact Settings</button>
+            <button class="tab-btn" data-tab="books">📚 Manage Books</button>
+        </div>
+        <div id="ordersTab" class="tab-pane active">Loading...</div>
+        <div id="contactTab" class="tab-pane">
+            <form id="contactSettingsForm">
+                <div class="form-group"><label>Orange Money Number</label><input type="tel" id="orangeNumber" placeholder="0771234567"></div>
+                <div class="form-group"><label>Lonestar MTN Number</label><input type="tel" id="lonestarNumber" placeholder="0881234567"></div>
+                <div class="form-group"><label>WhatsApp Number (international, no +)</label><input type="tel" id="whatsappNumber" placeholder="231777123456"></div>
+                <div class="form-group"><label>Email (for contact form)</label><input type="email" id="adminEmail" placeholder="prince@example.com"></div>
+                <button type="submit">Save Settings</button>
+            </form>
+            <div id="contactMsg"></div>
+        </div>
+        <div id="booksTab" class="tab-pane">
+            <h3>Add New Book</h3>
+            <form id="bookForm">
+                <div class="form-group"><label>Title</label><input type="text" id="bookTitle" required></div>
+                <div class="form-group"><label>Genre</label><input type="text" id="bookGenre" required></div>
+                <div class="form-group"><label>Price Local (LRD)</label><input type="text" id="bookPriceLocal" required></div>
+                <div class="form-group"><label>Price International (USD)</label><input type="text" id="bookPriceIntl" required></div>
+                <div class="form-group"><label>Synopsis</label><textarea id="bookSynopsis" rows="2" required></textarea></div>
+                <div class="form-group"><label>Cover Image URL (optional)</label><input type="text" id="bookCoverUrl" placeholder="https://... or empty for placeholder"></div>
+                <button type="submit">Add Book</button>
+            </form>
+            <div id="booksList" class="book-list">Loading books...</div>
+        </div>
+    </div>
 
-    let auth = sessionStorage.getItem('adminAuth');
-    if (auth !== ADMIN_PASSWORD) {
-        const pwd = prompt('Enter admin password:');
-        if (pwd === ADMIN_PASSWORD) {
-            sessionStorage.setItem('adminAuth', pwd);
-        } else {
-            document.getElementById('dynamic-content').innerHTML = '<p style="color:red;">Access denied.</p>';
-            throw new Error('Unauthorized');
+    <script>
+        const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
+
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('adminContainer').style.display = 'none';
         }
-    }
+        function showAdmin() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminContainer').style.display = 'block';
+            initAdmin();
+        }
 
-    function loadOrders() {
-        return JSON.parse(localStorage.getItem('orders') || '[]');
-    }
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            const pwd = document.getElementById('adminPassword').value;
+            if (pwd === ADMIN_PASSWORD) {
+                sessionStorage.setItem('adminAuth', pwd);
+                showAdmin();
+            } else {
+                document.getElementById('loginError').innerText = 'Incorrect password.';
+            }
+        });
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
 
-    function saveOrders(orders) {
-        localStorage.setItem('orders', JSON.stringify(orders));
-    }
-
-    function render() {
-        let orders = loadOrders();
-        let html = `
-            <div class="button-group">
-                <button id="exportBtn">📥 Export Orders to CSV</button>
-                <button id="clearBtn" class="clear-btn">🗑️ Clear All Orders</button>
-            </div>
-        `;
-
-        if (orders.length === 0) {
-            html += `<p><strong>Recent Book Orders (from localStorage):</strong> No orders yet.</p>`;
+        // Check existing session
+        if (sessionStorage.getItem('adminAuth') === ADMIN_PASSWORD) {
+            showAdmin();
         } else {
-            html += `<h2>Recent Book Orders</h2>
-            <table>
-                <thead>
-                    <tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>
-                </thead>
-                <tbody>`;
-            // Show most recent first
-            [...orders].reverse().forEach(order => {
-                html += `<tr>
-                    <td>${escapeHtml(order.timestamp || '')}</td>
-                    <td>${escapeHtml(order.name || '')}</td>
-                    <td>${escapeHtml(order.phone || '')}</td>
-                    <td>${escapeHtml(order.email || '')}</td>
-                    <td>${escapeHtml(order.book || '')}</td>
-                </tr>`;
+            showLogin();
+        }
+
+        // ---------- CMS Functions (same as before, but wrapped in initAdmin) ----------
+        function getBooks() { return JSON.parse(localStorage.getItem('books') || '[]'); }
+        function saveBooks(books) { localStorage.setItem('books', JSON.stringify(books)); updateLiveBooksPage(); }
+        function getSettings() { return JSON.parse(localStorage.getItem('siteSettings') || '{}'); }
+        function saveSettings(settings) { localStorage.setItem('siteSettings', JSON.stringify(settings)); updateLiveContactInfo(); }
+
+        function initDefaultBooks() {
+            let books = getBooks();
+            if (books.length === 0) {
+                books = [
+                    { title: "The Palm Wine Thief", genre: "Literary Fiction", priceLocal: "5,000 LRD", priceIntl: "$25 USD", synopsis: "A boy who finds lost things uncovers a conspiracy beneath Monrovia's palm wine bars.", coverUrl: "" },
+                    { title: "Spirit of October", genre: "Magical Realism", priceLocal: "4,500 LRD", priceIntl: "$22 USD", synopsis: "During election season, a boy sees ghosts of future leaders.", coverUrl: "" },
+                    { title: "Clay Hands", genre: "Short Stories", priceLocal: "6,000 LRD", priceIntl: "$30 USD", synopsis: "Ten stories of craft, survival, and clay pottery in post-war Liberia.", coverUrl: "" }
+                ];
+                saveBooks(books);
+            }
+        }
+
+        function updateLiveBooksPage() { localStorage.setItem('booksData', JSON.stringify(getBooks())); }
+        function updateLiveContactInfo() { localStorage.setItem('siteContactSettings', JSON.stringify(getSettings())); }
+
+        function renderOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            let html = `<div><button id="exportOrdersBtn">📥 Export to CSV</button> <button id="clearOrdersBtn" class="danger">🗑️ Clear All Orders</button></div>`;
+            if (orders.length === 0) html += `<p>No orders yet.</p>`;
+            else {
+                html += `<table><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>`;
+                [...orders].reverse().forEach(o => {
+                    html += `<tr><td>${escapeHtml(o.timestamp)}</td><td>${escapeHtml(o.name)}</td><td>${escapeHtml(o.phone)}</td><td>${escapeHtml(o.email)}</td><td>${escapeHtml(o.book)}</td></tr>`;
+                });
+                html += `</table>`;
+            }
+            html += `<p><a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank" style="display:inline-block; margin-top:1rem; background:#27ae60; color:white; padding:0.5rem 1rem; border-radius:40px; text-decoration:none;">📋 View Formspree Submissions</a></p>`;
+            document.getElementById('ordersTab').innerHTML = html;
+            document.getElementById('exportOrdersBtn')?.addEventListener('click', exportOrders);
+            document.getElementById('clearOrdersBtn')?.addEventListener('click', clearOrders);
+        }
+
+        function exportOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            if (!orders.length) return alert('No orders');
+            let csv = [['Date','Name','Phone','Email','Book']];
+            orders.forEach(o => csv.push([o.timestamp, o.name, o.phone, o.email, o.book]));
+            let blob = new Blob([csv.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n')], {type: 'text/csv'});
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `orders_${Date.now()}.csv`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        function clearOrders() {
+            if (confirm('Delete all orders?')) { localStorage.removeItem('orders'); renderOrders(); alert('Orders cleared'); }
+        }
+
+        function loadContactSettings() {
+            let settings = getSettings();
+            document.getElementById('orangeNumber').value = settings.orangeMoney || '';
+            document.getElementById('lonestarNumber').value = settings.lonestarMoney || '';
+            document.getElementById('whatsappNumber').value = settings.whatsapp || '';
+            document.getElementById('adminEmail').value = settings.email || '';
+        }
+
+        function renderBooksList() {
+            let books = getBooks();
+            let html = `<h3>Existing Books</h3>`;
+            if (books.length === 0) html += `<p>No books added yet.</p>`;
+            else {
+                books.forEach((book, idx) => {
+                    html += `<div class="book-item">
+                        <div class="book-info"><strong>${escapeHtml(book.title)}</strong> (${escapeHtml(book.genre)})<br>${escapeHtml(book.priceLocal)} / ${escapeHtml(book.priceIntl)}<br><small>${escapeHtml(book.synopsis)}</small></div>
+                        <div class="book-actions"><button onclick="editBook(${idx})">✏️ Edit</button> <button class="danger" onclick="deleteBook(${idx})">🗑️ Delete</button></div>
+                    </div>`;
+                });
+            }
+            document.getElementById('booksList').innerHTML = html;
+        }
+
+        window.editBook = function(idx) {
+            let books = getBooks();
+            let book = books[idx];
+            document.getElementById('bookTitle').value = book.title;
+            document.getElementById('bookGenre').value = book.genre;
+            document.getElementById('bookPriceLocal').value = book.priceLocal;
+            document.getElementById('bookPriceIntl').value = book.priceIntl;
+            document.getElementById('bookSynopsis').value = book.synopsis;
+            document.getElementById('bookCoverUrl').value = book.coverUrl || '';
+            const form = document.getElementById('bookForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Update Book';
+            form.onsubmit = (e) => {
+                e.preventDefault();
+                books[idx] = {
+                    title: document.getElementById('bookTitle').value,
+                    genre: document.getElementById('bookGenre').value,
+                    priceLocal: document.getElementById('bookPriceLocal').value,
+                    priceIntl: document.getElementById('bookPriceIntl').value,
+                    synopsis: document.getElementById('bookSynopsis').value,
+                    coverUrl: document.getElementById('bookCoverUrl').value
+                };
+                saveBooks(books);
+                renderBooksList();
+                form.reset();
+                submitBtn.textContent = 'Add Book';
+                form.onsubmit = addBookHandler;
+            };
+        };
+
+        function deleteBook(idx) {
+            if (confirm('Delete this book?')) {
+                let books = getBooks();
+                books.splice(idx, 1);
+                saveBooks(books);
+                renderBooksList();
+            }
+        }
+
+        function addBookHandler(e) {
+            e.preventDefault();
+            let books = getBooks();
+            let newBook = {
+                title: document.getElementById('bookTitle').value,
+                genre: document.getElementById('bookGenre').value,
+                priceLocal: document.getElementById('bookPriceLocal').value,
+                priceIntl: document.getElementById('bookPriceIntl').value,
+                synopsis: document.getElementById('bookSynopsis').value,
+                coverUrl: document.getElementById('bookCoverUrl').value
+            };
+            books.push(newBook);
+            saveBooks(books);
+            renderBooksList();
+            document.getElementById('bookForm').reset();
+            alert('Book added!');
+        }
+
+        function initAdmin() {
+            initDefaultBooks();
+            renderOrders();
+            loadContactSettings();
+            renderBooksList();
+            document.getElementById('bookForm').onsubmit = addBookHandler;
+            document.getElementById('contactSettingsForm').onsubmit = (e) => {
+                e.preventDefault();
+                let settings = {
+                    orangeMoney: document.getElementById('orangeNumber').value,
+                    lonestarMoney: document.getElementById('lonestarNumber').value,
+                    whatsapp: document.getElementById('whatsappNumber').value,
+                    email: document.getElementById('adminEmail').value
+                };
+                saveSettings(settings);
+                document.getElementById('contactMsg').innerHTML = '<div class="success-msg">✅ Settings saved! Refresh site to see changes.</div>';
+                setTimeout(() => document.getElementById('contactMsg').innerHTML = '', 3000);
+            };
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.removeEventListener('click', tabHandler);
+                btn.addEventListener('click', tabHandler);
             });
-            html += `</tbody></table>`;
+            function tabHandler() {
+                const tabId = this.dataset.tab;
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                if (tabId === 'orders') renderOrders();
+                if (tabId === 'contact') loadContactSettings();
+                if (tabId === 'books') renderBooksList();
+            }
+            document.getElementById('logoutBtn').onclick = () => {
+                sessionStorage.removeItem('adminAuth');
+                location.reload();
+            };
         }
 
-        html += `<h2>Contact Form Submissions & Feedback</h2>
-        <p>👉 <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank" class="formspree-link">Go to Formspree Submissions Dashboard</a></p>
-        <p><strong>Tip:</strong> Export as CSV from Formspree for record keeping.</p>
-        <div class="logout"><button id="logoutBtn">Logout</button></div>
-        <div class="note">💡 Orders are stored in your browser's localStorage. This is a quick reference; Formspree also receives a copy.</div>`;
-
-        document.getElementById('dynamic-content').innerHTML = html;
-
-        document.getElementById('exportBtn')?.addEventListener('click', exportToCSV);
-        document.getElementById('clearBtn')?.addEventListener('click', clearAllOrders);
-        document.getElementById('logoutBtn')?.addEventListener('click', () => {
-            sessionStorage.removeItem('adminAuth');
-            location.reload();
-        });
-    }
-
-    function exportToCSV() {
-        let orders = loadOrders();
-        if (orders.length === 0) {
-            alert('No orders to export.');
-            return;
-        }
-        const rows = [['Date', 'Name', 'Phone', 'Email', 'Book']];
-        orders.forEach(order => {
-            rows.push([
-                order.timestamp || '',
-                order.name || '',
-                order.phone || '',
-                order.email || '',
-                order.book || ''
-            ]);
-        });
-        const csv = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `orders_${new Date().toISOString().slice(0,19)}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    function clearAllOrders() {
-        if (confirm('⚠️ Permanently delete ALL orders from localStorage? (Formspree data remains)')) {
-            localStorage.removeItem('orders');
-            render();
-            alert('All orders cleared.');
-        }
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    render();
-</script>
+        function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    </script>
 </body>
 </html>
