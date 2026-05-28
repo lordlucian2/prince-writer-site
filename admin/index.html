@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard | Prince Writer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: monospace; max-width: 900px; margin: 2rem auto; padding: 1rem; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        * { box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; max-width: 1200px; margin: 2rem auto; padding: 1rem; background: #f5f5f5; }
+        .container { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e2f; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; overflow-x: auto; display: block; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background: #2c3e2f; color: white; }
         .logout { margin-top: 2rem; }
+        button { background: #b87c4f; color: white; border: none; padding: 8px 16px; border-radius: 40px; cursor: pointer; }
         .error { color: red; }
+        .info { background: #e8f5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .export-btn { background: #27ae60; margin-right: 10px; }
+        @media (max-width: 700px) { th, td { font-size: 12px; } }
     </style>
 </head>
 <body>
-<h1>Admin Dashboard</h1>
-<div id="content">
-    <p>Loading...</p>
+<div class="container">
+    <h1>Admin Dashboard</h1>
+    <div id="content">
+        <p>Loading...</p>
+    </div>
 </div>
 <script>
-    const ADMIN_PASSWORD = '@Liberia123';
+    const ADMIN_PASSWORD = 'liberian2025'; // CHANGE THIS!
     
     let auth = sessionStorage.getItem('adminAuth');
     if (auth !== ADMIN_PASSWORD) {
@@ -31,27 +41,90 @@
         }
     }
     
-    // Load orders from localStorage (from order-modal.js)
+    // Load orders from localStorage
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
     
-    // Load contact form submissions from Formspree? Not possible directly – must export manually.
-    // For now, show orders and instructions for getting form data.
-    let html = `<h2>Recent Book Orders (from localStorage)</h2>`;
-    if (orders.length === 0) {
-        html += `<p>No orders yet.</p>`;
-    } else {
-        html += `<table><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>`;
-        orders.reverse().forEach(order => {
-            html += `<tr><td>${order.timestamp || ''}</td><td>${order.name || ''}</td><td>${order.phone || ''}</td><td>${order.email || ''}</td><td>${order.book || ''}</td></tr>`;
+    // Export orders to CSV
+    function exportOrders() {
+        if (orders.length === 0) {
+            alert('No orders to export');
+            return;
+        }
+        let csv = "Date,Name,Phone,Email,Book\n";
+        orders.forEach(order => {
+            csv += `"${order.timestamp || ''}","${order.name || ''}","${order.phone || ''}","${order.email || ''}","${order.book || ''}"\n`;
         });
-        html += `</table>`;
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'orders.csv';
+        link.click();
+        URL.revokeObjectURL(link.href);
     }
     
-    html += `<h2>Contact Form Submissions</h2>`;
-    html += `<p>📧 Go to <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank">Formspree Submissions Dashboard</a> to see all contact and order inquiries.</p>`;
-    html += `<p><strong>Tip:</strong> Export as CSV for record keeping.</p>`;
-    html += `<div class="logout"><button onclick="sessionStorage.removeItem('adminAuth'); location.reload();">Logout</button></div>`;
+    // Clear all orders (with confirmation)
+    function clearOrders() {
+        if (confirm('⚠️ Are you sure you want to delete ALL orders? This cannot be undone.')) {
+            localStorage.removeItem('orders');
+            alert('Orders cleared. Refresh the page to see changes.');
+            location.reload();
+        }
+    }
+    
+    let html = `<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <h2>📦 Book Orders (${orders.length})</h2>
+                    <div>
+                        <button class="export-btn" onclick="exportOrders()">📥 Export CSV</button>
+                        <button onclick="clearOrders()" style="background:#c0392b;">🗑️ Clear All</button>
+                    </div>
+                </div>`;
+                
+    if (orders.length === 0) {
+        html += `<p>No orders yet. When someone buys a book via mobile money, the order will appear here.</p>`;
+    } else {
+        html += `<div style="overflow-x: auto;"><table>
+            <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Email</th><th>Book</th></tr>
+            </thead><tbody>`;
+        // Show most recent first
+        orders.slice().reverse().forEach(order => {
+            html += `<tr>
+                        <td>${order.timestamp ? new Date(order.timestamp).toLocaleString() : ''}</td>
+                        <td>${escapeHtml(order.name || '')}</td>
+                        <td>${escapeHtml(order.phone || '')}</td>
+                        <td>${escapeHtml(order.email || '')}</td>
+                        <td>${escapeHtml(order.book || '')}</td>
+                     </tr>`;
+        });
+        html += `</tbody></table></div>`;
+    }
+    
+    html += `<div class="info">
+                <h2>📧 Contact & Feedback Submissions</h2>
+                <p>All contact form inquiries, lead magnet signups, newsletter subscriptions, and feedback are sent to your Formspree dashboard.</p>
+                <p>👉 <a href="https://formspree.io/forms/xojbyazd/submissions" target="_blank" rel="noopener">Open Formspree Submissions</a></p>
+                <p>💡 Tip: You can export submissions as CSV from Formspree.</p>
+             </div>`;
+             
+    html += `<div class="info">
+                <h2>🔧 Quick Actions</h2>
+                <ul>
+                    <li><a href="/" target="_blank">View live site</a></li>
+                    <li><a href="/contact/">Test contact form</a></li>
+                    <li><a href="/admin/" onclick="sessionStorage.removeItem('adminAuth'); location.reload(); return false;">Logout</a></li>
+                </ul>
+             </div>`;
+             
     document.getElementById('content').innerHTML = html;
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
 </script>
 </body>
 </html>
