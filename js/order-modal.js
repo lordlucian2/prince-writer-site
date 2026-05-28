@@ -1,3 +1,7 @@
+function getSiteSettings() {
+    return JSON.parse(localStorage.getItem('siteContactSettings') || '{}');
+}
+
 // Order modal for mobile money purchases
 function showOrderModal(bookTitle) {
     let modal = document.getElementById('orderModal');
